@@ -11,7 +11,6 @@ import java.util.concurrent.Executors;
 public class Server {
     public final int NUMBER_THREADS = 64;
     private final ExecutorService threadPool;
-
     private final Map<String, Map<String, Handler>> handlers;
 
     public Server() {
@@ -37,6 +36,7 @@ public class Server {
              final BufferedReader in = new BufferedReader(new InputStreamReader(is));
              final OutputStream out = new BufferedOutputStream(socket.getOutputStream())) {
             final String requestLine = in.readLine();
+            System.out.println(requestLine);
             final String[] parts = requestLine.split(" ");
 
             String method = parts[0];
