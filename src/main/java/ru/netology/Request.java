@@ -26,6 +26,10 @@ public class Request {
         return queryParams;
     }
 
+    public String getQueryParam(String name) {
+        return queryParams.stream().filter(s -> s.getName().equals(name)).findFirst().get().getValue();
+    }
+
     public String getMethod() {
         return method;
     }
