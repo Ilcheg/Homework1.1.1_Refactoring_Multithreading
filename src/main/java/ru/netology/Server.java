@@ -3,6 +3,7 @@ package ru.netology;
 import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.net.URISyntaxException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ExecutorService;
@@ -42,10 +43,18 @@ public class Server {
             String method = parts[0];
             String path = parts[1];
             Request request = new Request(method, path, in);
+
+            if (!request.getQueryParams().isEmpty()) {
+                System.out.println("Query parameters: " + request.getQueryParams());
+            }
+            System.out.println("Path: " + request.getPath());
+
             System.out.print("handled\n");
             handleRequest(request, out);
         } catch (IOException e) {
             e.printStackTrace();
+        } catch (URISyntaxException e) {
+            throw new RuntimeException(e);
         }
         try {
             socket.close();
